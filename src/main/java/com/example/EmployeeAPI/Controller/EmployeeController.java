@@ -43,16 +43,6 @@ public class EmployeeController {
         return employeeService.partialUpdate(id, salary,empDepartment);
     }
 
-//    @GetMapping("/search")
-//    public List<Employee> searchByFilter(@RequestParam String name,@RequestParam String dept){
-//        return employeeService.searchByFilter(name,dept);
-//    }
-
-//    @GetMapping("/search/name")
-//    public List<Employee> searchByName(@RequestParam String name){
-//        return employeeService.searchByName(name);
-//    }
-
     @GetMapping("/search")
     public List<Employee> searchByFilter(
             @RequestParam(required = false) String name,

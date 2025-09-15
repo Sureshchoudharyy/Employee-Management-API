@@ -2,6 +2,7 @@ package com.example.EmployeeAPI.Service;
 
 import com.example.EmployeeAPI.Entity.Employee;
 import com.example.EmployeeAPI.Repo.EmployeeRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class EmployeeService {
                 .orElseThrow(() -> new RuntimeException("Employee Not Found!"));
     }
 
+    @Transactional
     public Employee createEmployee(Employee employee) {
         return employeeRepo.save(employee);
     }
