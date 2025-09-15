@@ -1,5 +1,6 @@
 package com.example.EmployeeAPI.Controller;
 
+import com.example.EmployeeAPI.DTO.EmployeeDTO;
 import com.example.EmployeeAPI.Entity.Employee;
 import com.example.EmployeeAPI.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,42 +15,43 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeDTO> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Long id){
+    public EmployeeDTO getEmployeeById(@PathVariable Long id){
         return employeeService.getEmployeeById(id);
     }
 
     @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
+    public int createEmployee(@RequestBody EmployeeDTO employee) {
         return employeeService.createEmployee(employee);
     }
 
-    @PutMapping
-    public Employee updateEmployee(@RequestParam Long id, @RequestBody Employee employee) {
-        return employeeService.updateEmployee(id, employee);
+    @PutMapping("/{id}")
+    public int updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employee) {
+        employee.setId(id);
+        return employeeService.updateEmployee(employee);
     }
 
-    @DeleteMapping
-    public Employee deleteEmployee(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public int deleteEmployee(@PathVariable Long id) {
         return employeeService.deleteEmployee(id);
     }
 
-    @PatchMapping
-    public Employee PartialUpdate(@RequestParam Long id,@RequestParam Double salary,@RequestParam String empDepartment){
-        return employeeService.partialUpdate(id, salary,empDepartment);
-    }
-
-    @GetMapping("/search")
-    public List<Employee> searchByFilter(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String dept,
-            @RequestParam(required = false) Double minSalary,
-            @RequestParam(required = false) Double maxSalary) {
-        return employeeService.searchByFilter(name, dept, minSalary, maxSalary);
-    }
+//    @PatchMapping
+//    public Employee PartialUpdate(@RequestParam Long id,@RequestParam Double salary,@RequestParam String empDepartment){
+//        return employeeService.partialUpdate(id, salary,empDepartment);
+//    }
+//
+//    @GetMapping("/search")
+//    public List<Employee> searchByFilter(
+//            @RequestParam(required = false) String name,
+//            @RequestParam(required = false) String dept,
+//            @RequestParam(required = false) Double minSalary,
+//            @RequestParam(required = false) Double maxSalary) {
+//        return employeeService.searchByFilter(name, dept, minSalary, maxSalary);
+//    }
 
 }
